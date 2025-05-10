@@ -25,19 +25,19 @@ export function AboutSection() {
             transition={{ duration: 0.5 }}
           >
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              I'm a passionate Senior Frontend Developer with extensive experience in building modern web applications
-              that deliver exceptional user experiences. My goal is to create intuitive, responsive, and high-performing
+              I'm a passionate Frontend Developer with extensive experience in building modern web applications that
+              deliver exceptional user experiences. My goal is to create intuitive, responsive, and high-performing
               interfaces that solve real-world problems.
             </p>
 
             <ul className="space-y-4">
               <li className="flex items-center space-x-3">
                 <div className="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full"></div>
-                <span className="text-gray-700 dark:text-gray-200">5+ years of experience in web development</span>
+                <span className="text-gray-700 dark:text-gray-200">2+ years of experience in web development</span>
               </li>
               <li className="flex items-center space-x-3">
                 <div className="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full"></div>
-                <span className="text-gray-700 dark:text-gray-200">Specialized in MERN stack development</span>
+                <span className="text-gray-700 dark:text-gray-200">Specialized in Frontend Technology</span>
               </li>
               <li className="flex items-center space-x-3">
                 <div className="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full"></div>

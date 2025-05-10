@@ -1,29 +1,77 @@
 "use client"
 
-import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
-
+import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion"
+import { type MouseEvent, type ReactNode, useRef } from "react"
 import { cn } from "@/lib/utils"
 
-const HoverCard = HoverCardPrimitive.Root
+interface HoverCardProps {
+  children: ReactNode
+  className?: string
+  glowColor?: string
+  borderColor?: string
+  hoverScale?: number
+}
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+export function HoverCard({
+  children,
+  className,
+  glowColor = "rgba(var(--primary-rgb), 0.15)",
+  borderColor = "rgba(var(--primary-rgb), 0.1)",
+  hoverScale = 1.02,
+}: HoverCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null)
 
-const HoverCardContent = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
-  <HoverCardPrimitive.Content
-    ref={ref}
-    align={align}
-    sideOffset={sideOffset}
-    className={cn(
-      "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
-    )}
-    {...props}
-  />
-))
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
+  // For glow effect
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-export { HoverCard, HoverCardTrigger, HoverCardContent }
+  // Smooth values for better animation
+  const springMouseX = useSpring(mouseX, { stiffness: 500, damping: 150 })
+  const springMouseY = useSpring(mouseY, { stiffness: 500, damping: 150 })
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+
+    const rect = cardRef.current.getBoundingClientRect()
+    mouseX.set(e.clientX - rect.left)
+    mouseY.set(e.clientY - rect.top)
+  }
+
+  // Create a radial gradient that follows the mouse
+  const background = useMotionTemplate`radial-gradient(
+    250px circle at ${springMouseX}px ${springMouseY}px,
+    ${glowColor},
+    transparent 80%
+  )`
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className={cn(
+        "relative overflow-hidden rounded-xl bg-card border p-6 shadow-md transition-all duration-300 group",
+        className,
+      )}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        mouseX.set(0)
+        mouseY.set(0)
+      }}
+      whileHover={{ scale: hoverScale, borderColor: borderColor }}
+    >
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{ background }}
+        aria-hidden="true"
+      />
+      {children}
+    </motion.div>
+  )
+}
+
+export const HoverCardTrigger = ({ children, className }: { children: ReactNode; className?: string }) => {
+  return <div className={className}>{children}</div>
+}
+
+export const HoverCardContent = ({ children, className }: { children: ReactNode; className?: string }) => {
+  return <div className={className}>{children}</div>
+}

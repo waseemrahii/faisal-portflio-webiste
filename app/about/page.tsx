@@ -31,7 +31,7 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl font-semibold mb-6 text-primary">My Story</h2>
               <p className="text-muted-foreground mb-6">
-                I'm Muhammad Faisal, a passionate Senior Frontend Developer with over 5 years of experience in building
+                I'm Muhammad Faisal, a passionate  Frontend Developer with over 2 years of experience in building
                 modern web applications. My journey in web development began with a fascination for creating interactive
                 user experiences and has evolved into a deep expertise in frontend development.
               </p>
@@ -208,16 +208,16 @@ export default function AboutPage() {
                   skills: ["React.js", "Next.js", "Redux", "Tailwind CSS", "Material UI", "Framer Motion"],
                   color: "bg-blue-500",
                 },
-                {
-                  title: "Backend Development",
-                  skills: ["Node.js", "Express.js", "REST APIs", "GraphQL", "Authentication", "WebSockets"],
-                  color: "bg-green-500",
-                },
-                {
-                  title: "Database Management",
-                  skills: ["MongoDB", "MySQL", "PostgreSQL", "Firebase", "Redis", "Data Modeling"],
-                  color: "bg-purple-500",
-                },
+                // {
+                //   title: "Backend Development",
+                //   skills: ["Node.js", "Express.js", "REST APIs", "GraphQL", "Authentication", "WebSockets"],
+                //   color: "bg-green-500",
+                // },
+                // {
+                //   title: "Database Management",
+                //   skills: ["MongoDB", "MySQL", "PostgreSQL", "Firebase", "Redis", "Data Modeling"],
+                //   color: "bg-purple-500",
+                // },
                 {
                   title: "DevOps & Tools",
                   skills: ["Git", "Docker", "AWS", "Vercel", "CI/CD", "Performance Optimization"],
